@@ -40,8 +40,10 @@ else:
     except PermissionError:
         'try the datadirs'
 
+import os
 
 
+os.name
 
 
 
