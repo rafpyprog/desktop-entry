@@ -3,6 +3,9 @@ ENTRY_TYPE_DESKTOP = 1
 ENTRY_TYPE_DIRECTORY = 2
 ENTRY_TYPES = (ENTRY_TYPE_DESKTOP, ENTRY_TYPE_DIRECTORY)
 
+
+class Action():""
+
 class DesktopEntryFile():
     def __init__(self, entry_type, label):
     __attrs__ = ['entry_type', 'label']
