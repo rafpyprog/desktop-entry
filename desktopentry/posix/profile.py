@@ -1,10 +1,23 @@
-Keys = UserDict(
-    name='Name',
-)
+from collections import UserDict
+from .key import KeyElement, KeyChain, KeyType
+
+BOOLEAN = KeyType.boolean
+LOCALESTRING = KeyType.localestring
+STRING = KeyType.string
+STRINGS_LIST = KeyType.stringslist
+
+ProfileKeys = KeyChain(
+    name             = KeyElement('Name', LOCALESTRING, False},
+    exec             = KeyElement('Exec', STRING, True),
+    path             = KeyElement('Path', STRING, False),
+    execution_mode   = KeyElement('ExecutionMode', STRING, False),
+    startup_notify   = KeyElement('StartupNotify', BOOLEAN, False),
+    startup_WM_class = KeyElement('StartupWMClass', STRING, False),
+    execute_as       = KeyElement('ExecuteAs', STRING, False)
+    )
+
 class Profile():
-    def __init__(self, Exec, Name="", Path="%%d",
-                 ExecutionMode=ExecutionMode['NORMAL'], StartupNotify="false",
-                 StartupWMClass="", ExecuteAs="", **conditions):
+    def __init__(self, exec, **kwargs):
         '''
             Exec:. command to execute, possibly with arguments. Paramentes
                    may apper in Exec value.

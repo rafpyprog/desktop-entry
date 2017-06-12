@@ -1,7 +1,6 @@
 import inspect
 from collections import Iterable, UserDict
 
-Keys =
 
 Conditions = UserDict(
     BASE_NAMES='Basenames',
@@ -24,11 +23,3 @@ ExecutionMode = UserDict(
     TERMINAL='Terminal',
     EMBEDDED='Embedded',
     DISPLAY_OUTPUT='DisplayOutput')
-
-
-
-
-
-class Menu():
-    ''' TODO '''
-    pass

@@ -1,0 +1,16 @@
+Descrição:
+Inserir item no menu de contexto de qualquer sistema  operacional.  Permitindo
+executar programas ao clicar com o botão diretito no file manager e selecionar
+a opção configurada no menu.
+
+Funcionalidades:
+- Cria o menu de contexto e atribuir um nome
+- Atribuir um comando ao menu de contexto
+
+Sistemas Operacionais:
+- Linux
+- Darwin
+- Windows
+
+Todo:
+- Linux: Implementar os Menus 
