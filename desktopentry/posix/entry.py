@@ -1,9 +1,7 @@
-#/usr/local/bin/python3.6
-
 from collections import UserDict
 
 
-entries = KeyChain(
+Entries = EntriesGroup(
     actions            = Entry('Actions', EntryType.STRING_LIST),
     categories         = Entry('Categories', EntryType.STRING_LIST),
     comment            = Entry('Comment', EntryType.STRING),
@@ -89,7 +87,7 @@ class Entry():
             raise ValueError('"{}" is not a valid key type.'.format(value))
 
 
-class KeyChain(UserDict):
+class EntriesGroup(UserDict):
     def __init__(self, **kwargs):
         self.data = kwargs
         self.setter()
