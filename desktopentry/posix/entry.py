@@ -1,6 +1,55 @@
 from collections import UserDict
 
 
+class EntryType():
+    ''' The value types recognized are string, localestring, boolean,
+        numeric and stringslist
+
+    - Values of type string may contain all ASCII characters except for
+      control characters.
+    - Values of type localestring are user displayable, and are encoded
+      in UTF-8.
+    - Values of type boolean must either be the string true or false.
+    - Values of type numeric must be a valid floating point number as
+      recognized by the %%f specifier for scanf in the C locale.
+    - Values of type stringslist must be a string with items separeted by a
+      semicolon.
+    '''
+    BOOLEAN = 'BOOLEAN'
+    LOCALESTRING = 'LOCALESTRING'
+    NUMERIC = 'NUMERIC'
+    STRING = 'STRING'
+    STRING_LIST = 'STRING_LIST'
+
+
+class Entry():
+    def __init__(self, key, key_type):
+        '''
+        key_type: boolean, localestring, string
+        '''
+        self.key = key
+        self.set_key_type(key_type)
+
+    def set_key_type(self, value):
+        if hasattr(EntryType, value):
+            self.entry_type= value
+        else:
+            raise ValueError('"{}" is not a valid key type.'.format(value))
+
+
+class EntriesGroup(UserDict):
+    def __init__(self, **kwargs):
+        self.data = kwargs
+        self.setter()
+
+    def setter(self):
+        for key in self.data:
+            if isinstance(self.data[key], Entry):
+                setattr(self, str(key), self.data[key])
+            else:
+                raise TypeError("{} is not a key.Entry instance.".format(key))
+
+
 Entries = EntriesGroup(
     actions            = Entry('Actions', EntryType.STRING_LIST),
     categories         = Entry('Categories', EntryType.STRING_LIST),
@@ -49,52 +98,3 @@ Entries = EntriesGroup(
     folders            = Entry('Folders', EntryType.STRING_LIST),  # A list of paths the current base directory must be in in order the item be selected.
     capabilities       = Entry('Capabilities', EntryType.STRING_LIST), #A list of capabilities each item of the selection must satisfy in order the item be candidate.
     )
-
-
-class EntryType():
-    ''' The value types recognized are string, localestring, boolean,
-        numeric and stringslist
-
-    - Values of type string may contain all ASCII characters except for
-      control characters.
-    - Values of type localestring are user displayable, and are encoded
-      in UTF-8.
-    - Values of type boolean must either be the string true or false.
-    - Values of type numeric must be a valid floating point number as
-      recognized by the %%f specifier for scanf in the C locale.
-    - Values of type stringslist must be a string with items separeted by a
-      semicolon.
-    '''
-    BOOLEAN = 'BOOLEAN'
-    LOCALESTRING = 'LOCALESTRING'
-    NUMERIC = 'NUMERIC'
-    STRING = 'STRING'
-    STRING_LIST = 'STRING_LIST'
-
-
-class Entry():
-    def __init__(self, key, key_type):
-        '''
-        key_type: boolean, localestring, string
-        '''
-        self.key = key
-        self.set_key_type(key_type)
-
-    def set_key_type(self, value):
-        if hasattr(EntryType, value):
-            self.entry_type= value
-        else:
-            raise ValueError('"{}" is not a valid key type.'.format(value))
-
-
-class EntriesGroup(UserDict):
-    def __init__(self, **kwargs):
-        self.data = kwargs
-        self.setter()
-
-    def setter(self):
-        for key in self.data:
-            if isinstance(self.data[key], Entry):
-                setattr(self, str(key), self.data[key])
-            else:
-                raise TypeError("{} is not a key.Entry instance.".format(key))
